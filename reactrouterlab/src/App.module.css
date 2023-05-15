@@ -1,0 +1,51 @@
+/* Style de l'en-tête */
+.Header {
+    background-color: #333;
+    padding: 20px;
+    text-align: center;
+  }
+    
+.App-logo {
+    height: 80px;
+    pointer-events: none;
+}
+
+
+/* Style de l'en-tête de l'application */
+.App-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.App-column-left {
+    flex: 1;
+    margin-right: 20px;
+}
+
+/* Style de la liste des capteurs */
+.sensor-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sensor-list li {
+    margin-bottom: 10px;
+  }
+  
+  .sensor-list a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    display: block;
+    background-color: #f2f2f2;
+    transition: background-color 0.3s ease;
+  }
+  
+  .sensor-list a:hover {
+    background-color: #ddd;
+  }
