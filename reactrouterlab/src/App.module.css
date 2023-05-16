@@ -49,3 +49,18 @@
   .sensor-list a:hover {
     background-color: #ddd;
   }
+  .connect-button {
+    background-color: green;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .disconnect-button {
+    background-color: red;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+  }

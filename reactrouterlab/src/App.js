@@ -12,6 +12,7 @@ function App() {
   const [url, setUrl] = useState("");
   const [connected, setConnected] = useState(false);
   const [client, setClient] = useState(null);
+  const existingUrls = ["wss://random.pigne.org", "wss://wss.databeam.eu"];
   
   const onMessage = async (message) => {
     const topic = message.destinationName;
@@ -84,15 +85,22 @@ function App() {
               return false;
             }}
           >
-            <input
-              onChange={(evt) => setUrl(evt.target.value)}
-              placeholder="Entrez l'url de la datasource"
-            />
-            <input
-              type="submit"
-              value={connected ? "Se deconnecter" : "Se connecter"}
-            />
-          </form>
+             <input
+  onChange={(evt) => setUrl(evt.target.value)}
+  placeholder="Entrez l'url de la datasource "
+  list="urlSuggestions"
+/>
+<datalist id="urlSuggestions">
+  {existingUrls.map((url) => (
+    <option key={url} value={url} />
+  ))}
+</datalist>
+<input
+  type="submit"
+  value={connected ? "Se déconnecter" : "Se connecter"}
+  className={connected ? styles.disconnectButton : styles.connectButton}
+/>
+    </form>
           <>
           {sensorList.map((sensor) => {
     return (
