@@ -1,19 +1,19 @@
 import logo from "./logo.svg";
 import "./App.css";
 import styles from "./App.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connectToSocket, disconnectFromSocket } from "./dataHandling";
-import { Routes, Route, Link, Navigate } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import { DataDisplayer } from "./component/dataDisplayer";
 
 function App() {
-  const [sensorList, setSensorList] = React.useState([]);
-  const [queue, setQueue] = React.useState([]);
-  const [url, setUrl] = React.useState("");
-  const [connected, setConnected] = React.useState(false);
-  const [client, setClient] = React.useState(null);
+  const [sensorList, setSensorList] = useState([]);
+  const [queue, setQueue] = useState([]);
+  const [url, setUrl] = useState("");
+  const [connected, setConnected] = useState(false);
+  const [client, setClient] = useState(null);
   
-  const onMessage = (message) => {
+  const onMessage = async (message) => {
     const topic = message.destinationName;
     const payload = JSON.parse(message.payloadString);
     if (sensorList.find((sensor) => sensor.topic === topic) === undefined) {
@@ -30,7 +30,8 @@ function App() {
     setSensorList([]);
     setClient(null);
   };
- React.useEffect(() => {
+
+  useEffect(() => {
     if (!queue.length) return;
     const idx = sensorList.findIndex(
       (sensor) => sensor.topic === queue[0].topic
@@ -48,14 +49,13 @@ function App() {
     setQueue(queue.slice(1));
   }, [queue, sensorList]);
 
-
   return (
     <>
       <div className={styles.Header}>
-        <img src={logo} alt="Stuff sensor" className={styles['App-logo']} />
+        <img src={logo} alt="Stuff sensor" className={styles["App-logo"]} />
       </div>
-      <header className={styles['App-header']}>
-        <div className={styles['App-column-left']}>
+      <header className={styles["App-header"]}>
+        <div className={styles["App-column-left"]}>
           <Routes>
             <Route index element={<main className=""></main>} />
             {sensorList.map((sensor) => {
@@ -69,7 +69,7 @@ function App() {
             })}
           </Routes>
         </div>
-        <div className={styles['App-column-left']}>
+        <div className={styles["App-column-left"]}>
           <form
             onSubmit={(evt) => {
               evt.preventDefault();
@@ -84,7 +84,6 @@ function App() {
               return false;
             }}
           >
-           
             <input
               onChange={(evt) => setUrl(evt.target.value)}
               placeholder="Entrez l'url de la datasource"
@@ -110,4 +109,5 @@ function App() {
     </>
   );
 }
+
 export default App;
