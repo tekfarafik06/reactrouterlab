@@ -30,6 +30,23 @@ function App() {
     setSensorList([]);
     setClient(null);
   };
+ React.useEffect(() => {
+    if (!queue.length) return;
+    const idx = sensorList.findIndex(
+      (sensor) => sensor.topic === queue[0].topic
+    );
+    if (idx !== -1) {
+      const copy = [...sensorList];
+      copy[idx].payload.value = [
+        ...copy[idx].payload.value,
+        queue[0].payload.value,
+      ];
+      setSensorList(copy);
+    } else {
+      setSensorList([...sensorList, queue[0]]);
+    }
+    setQueue(queue.slice(1));
+  }, [queue, sensorList]);
 
 
   return (
@@ -74,7 +91,7 @@ function App() {
             />
             <input
               type="submit"
-              value={connected ? "Se dÃ©connecter" : "Se connecter"}
+              value={connected ? "Se deconnecter" : "Se connecter"}
             />
           </form>
           <>
@@ -93,3 +110,4 @@ function App() {
     </>
   );
 }
+export default App;
